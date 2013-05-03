@@ -26,9 +26,11 @@ action :create do
 			nvm install #{from_source_arg} #{new_resource.version}
 		EOH
 	end
-	if new_resource.alias_as_default
-		nvm_alias_default new_resource.version do
-			action :create
-		end
+	# break FC021: Resource condition in provider may not behave as expected
+	# silly thing because new_resource.version is dynamic not fixed
+	nvm_alias_default new_resource.version do
+		action :create
+		only_if { new_resource.alias_as_default }
 	end
+	new_resource.updated_by_last_action(true)
 end
