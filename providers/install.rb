@@ -17,8 +17,15 @@
 # limitations under the License.
 #
 
-default['nvm']['directory'] = '/usr/local/src/nvm'
-default['nvm']['repository'] = 'git://github.com/creationix/nvm.git'
-default['nvm']['reference'] = 'master'
-default['nvm']['source'] = 'source /etc/profile.d/nvm.sh'
-default['nvm']['build_from_source'] = true
+action :create do
+	from_source_message = new_resource.from_source ? ' from source' : ''
+	from_source_arg = new_resource.from_source ? '-s' : ''
+	default_to = new_resource.default_to ? 'nvm alias default #{new_resource.version}' : ''
+	bash "Installing node.js #{new_resource.version}#{from_source_message}..." do
+		code <<-EOH
+			#{node['nvm']['source']}
+			nvm install #{from_source_arg} #{new_resource.version}
+
+		EOH
+	end
+end

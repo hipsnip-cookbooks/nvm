@@ -18,3 +18,7 @@ suites:
   run_list:
     - recipe[nvm_test::default]
     - recipe[minitest-handler]
+- name: nvm-install
+  run_list:
+    - recipe[nvm_test::nvm_install]
+    - recipe[minitest-handler]

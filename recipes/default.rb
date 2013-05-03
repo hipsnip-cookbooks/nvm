@@ -20,6 +20,26 @@
 include_recipe 'git'
 
 ############################################################################
+# Install dependencies
+
+package 'libcurl3' do
+  action :install
+end
+
+package 'curl' do
+  action :install
+end
+
+if node['nvm']['build_from_source']
+  package 'build-essential' do
+    action :install
+  end
+  package 'libssl-dev' do
+    action :install
+  end
+end
+
+############################################################################
 # Download nvm
 
 git node['nvm']['directory'] do
@@ -33,4 +53,5 @@ end
 
 template '/etc/profile.d/nvm.sh' do
   source 'nvm.sh.erb'
+  mode 0755
 end
