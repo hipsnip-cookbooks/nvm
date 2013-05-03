@@ -33,7 +33,7 @@ For more usage examples, have a look to the recipes in `test/cookbooks/nvm_test/
 * `node['nvm']['source']` - command to source nvm script file, default 'source /etc/profile.d/nvm.sh'
 * `node['nvm']['install_deps_to_build_from_source']` - if true install the dependencies to compile node, otherwise not, default true
 
-## LWRP
+## LWRPs
 
 ### nvm_install
 
@@ -82,7 +82,7 @@ Use by default the given node.js version
 
 #### Example
 
-Use node.js version 0.10.0
+Use by default node.js version 0.10.0
 
 	nvm_alias_default '0.10.0'  do
 		action :create
