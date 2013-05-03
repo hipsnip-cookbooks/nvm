@@ -30,7 +30,7 @@ package 'curl' do
   action :install
 end
 
-if node['nvm']['build_from_source']
+if node['nvm']['install_deps_to_build_from_source']
   package 'build-essential' do
     action :install
   end

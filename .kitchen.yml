@@ -26,3 +26,7 @@ suites:
   run_list:
     - recipe[nvm_test::nvm_alias_default]
     - recipe[minitest-handler]
+- name: nvm-install-from-source
+  run_list:
+    - recipe[nvm_test::nvm_install_from_source]
+    - recipe[minitest-handler]
