@@ -11,10 +11,82 @@ Depends on the `git` cookbook.
 
 ## Usage
 
+Install nvm and node.js version 0.10.5.
+
+	# install nvm
+	include_recipe 'nvm'
+
+	# install node.js v0.10.5
+	nvm_install 'v0.10.5'  do
+		from_source false
+		alias_as_default true
+		action :create
+	end
 
 For more usage examples, have a look to the recipes in `test/cookbooks/nvm_test/recipes/`.
 
 ## Attributes
+
+* `node['nvm']['directory']` - directory where nvm is cloned, default '/usr/local/src/nvm'
+* `node['nvm']['repository']` - url of the git repository, default 'git://github.com/creationix/nvm.git'
+* `node['nvm']['reference']` - reference in the repository, default 'master'
+* `node['nvm']['source']` - command to source nvm script file, default 'source /etc/profile.d/nvm.sh'
+* `node['nvm']['install_deps_to_build_from_source']` - if true install the dependencies to compile node, otherwise not, default true
+
+## LWRP
+
+### nvm_install
+
+Install a node.js version from source or binaries
+
+#### Actions
+
+- `create` (default)
+
+#### Attributes
+
+- `version` - node.js version, default to the name attribute
+- `from_source` - install from source if true, default to false
+- `alias_as_default` - alias the current version as the default version, default true
+
+#### Examples
+
+Install from binary
+
+	nvm_install '0.10.5'  do
+		from_source false
+		alias_as_default true
+		action :create
+	end
+
+Install from source
+
+	nvm_install '0.10.5'  do
+		from_source true
+		alias_as_default true
+		action :create
+	end
+
+
+### nvm_alias_default
+
+Use by default the given node.js version
+
+#### Actions
+
+- `create` (default)
+
+#### Attributes
+
+- `version` - node.js version, default to the name attribute
+
+#### Example
+
+Use node.js version 0.10.0
+
+	nvm_alias_default '0.10.0'  do
+		action :create
+	end
 
 ## Cookbook development
 
