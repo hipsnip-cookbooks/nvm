@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: nvm
-# Recipe:: default
+# Provider:: nvm_install
 #
 # Copyright 2013, HipSnip Limited
 #
@@ -20,12 +20,15 @@
 action :create do
 	from_source_message = new_resource.from_source ? ' from source' : ''
 	from_source_arg = new_resource.from_source ? '-s' : ''
-	default_to = new_resource.default_to ? 'nvm alias default #{new_resource.version}' : ''
 	bash "Installing node.js #{new_resource.version}#{from_source_message}..." do
 		code <<-EOH
 			#{node['nvm']['source']}
 			nvm install #{from_source_arg} #{new_resource.version}
-
 		EOH
+	end
+	if new_resource.alias_as_default
+		nvm_alias_default new_resource.version do
+			action :create
+		end
 	end
 end

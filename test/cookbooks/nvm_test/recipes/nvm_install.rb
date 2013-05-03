@@ -1,7 +1,10 @@
 include_recipe 'nvm'
 
-nvm_install 'v0.8.13' do
+version = 'v0.10.5'
+node.set['nvm']['nvm_install_test']['version'] = version
+
+nvm_install version  do
 	from_source false
-	default_to true
+	alias_as_default true
 	action :create
 end
