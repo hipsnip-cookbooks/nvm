@@ -1,0 +1,5 @@
+cookbook 'nvm', :path => '/home/lbdremy/workspace/hipsnip-cookbooks/nvm'
+cookbook 'apt', :locked_version => '1.9.2'
+cookbook 'minitest-handler', :locked_version => '0.1.7'
+cookbook 'nvm_test', :path => 'test/cookbooks/nvm_test'
+cookbook 'chef_handler', :locked_version => '1.1.4'
