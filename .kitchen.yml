@@ -22,3 +22,7 @@ suites:
   run_list:
     - recipe[nvm_test::nvm_install]
     - recipe[minitest-handler]
+- name: nvm-alias-default
+  run_list:
+    - recipe[nvm_test::nvm_alias_default]
+    - recipe[minitest-handler]
