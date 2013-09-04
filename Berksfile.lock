@@ -1,11 +1,37 @@
-cookbook 'nvm', :path => '/home/lbdremy/workspace/hipsnip-cookbooks/nvm'
-cookbook 'apt', :locked_version => '1.9.2'
-cookbook 'minitest-handler', :locked_version => '0.1.7'
-cookbook 'nvm_test', :path => 'test/cookbooks/nvm_test'
-cookbook 'git', :locked_version => '2.5.0'
-cookbook 'dmg', :locked_version => '1.1.0'
-cookbook 'build-essential', :locked_version => '1.3.4'
-cookbook 'yum', :locked_version => '2.2.0'
-cookbook 'windows', :locked_version => '1.8.8'
-cookbook 'chef_handler', :locked_version => '1.1.4'
-cookbook 'runit', :locked_version => '1.1.2'
+{
+  "sources": {
+    "nvm": {
+      "path": "."
+    },
+    "apt": {
+      "locked_version": "2.1.0"
+    },
+    "minitest-handler": {
+      "locked_version": "0.2.1"
+    },
+    "nvm_test": {
+      "path": "./test/cookbooks/nvm_test"
+    },
+    "git": {
+      "locked_version": "2.6.0"
+    },
+    "dmg": {
+      "locked_version": "2.0.0"
+    },
+    "build-essential": {
+      "locked_version": "1.4.2"
+    },
+    "yum": {
+      "locked_version": "2.3.0"
+    },
+    "windows": {
+      "locked_version": "1.10.0"
+    },
+    "chef_handler": {
+      "locked_version": "1.1.4"
+    },
+    "runit": {
+      "locked_version": "1.2.0"
+    }
+  }
+}
