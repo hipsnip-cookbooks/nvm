@@ -18,7 +18,12 @@
 #
 
 action :create do
-	bash "Alias default node.js version to #{new_resource.version}..." do
+	script "Alias default node.js version to #{new_resource.version}..." do
+    interpreter 'bash'
+    flags '-l'
+    user user
+    group group
+    environment Hash[ 'HOME' => node['nvm']['home'] ]
 		code <<-EOH
 			#{node['nvm']['source']}
 			nvm alias default #{new_resource.version}

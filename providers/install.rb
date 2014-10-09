@@ -20,15 +20,24 @@
 action :create do
 	from_source_message = new_resource.from_source ? ' from source' : ''
 	from_source_arg = new_resource.from_source ? '-s' : ''
-	bash "Installing node.js #{new_resource.version}#{from_source_message}..." do
+  nvm_user = new_resource.user ||= 'root'
+  nvm_group = new_resource.group ||= 'root'
+	script "Installing node.js #{new_resource.version}#{from_source_message}, as as #{nvm_user}:#{nvm_group}" do
+    interpreter 'bash'
+    flags '-l'
+    user nvm_user
+    group nvm_group
+    environment Hash[ 'HOME' => node['nvm']['home'] ]
 		code <<-EOH
-			#{node['nvm']['source']}
+      source /etc/profile.d/nvm.sh
 			nvm install #{from_source_arg} #{new_resource.version}
 		EOH
 	end
 	# break FC021: Resource condition in provider may not behave as expected
 	# silly thing because new_resource.version is dynamic not fixed
 	nvm_alias_default new_resource.version do
+    user nvm_user
+    group nvm_group
 		action :create
 		only_if { new_resource.alias_as_default }
 	end

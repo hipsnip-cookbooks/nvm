@@ -1,1 +1,5 @@
+<% if node['nvm']['user_install'] %>
+[ -f ${HOME}/.nvm/nvm.sh ] && . ${HOME}/.nvm/nvm.sh || echo "NVM not installed for current user"
+<% else %>
 . <%= node['nvm']['directory'] %>/nvm.sh
+<% end %>

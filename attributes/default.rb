@@ -17,8 +17,17 @@
 # limitations under the License.
 #
 
+# If user install is true, nvm will be installed in the home directory of
+# the user configured in node['nvm']['user']. If false, the directory
+# attribute will be used.
+default['nvm']['user_install'] = false
+default['nvm']['user_home_dir'] = nil
+# Only used if user_install is false
 default['nvm']['directory'] = '/usr/local/src/nvm'
+
 default['nvm']['repository'] = 'git://github.com/creationix/nvm.git'
 default['nvm']['reference'] = 'master'
 default['nvm']['source'] = 'source /etc/profile.d/nvm.sh'
 default['nvm']['install_deps_to_build_from_source'] = true
+default['nvm']['user'] = 'root'
+default['nvm']['group'] = 'root'

@@ -23,3 +23,5 @@ default_action :create
 attribute :version, :kind_of => String, :name_attribute => true
 attribute :from_source, :kind_of => [TrueClass, FalseClass], :default => false
 attribute :alias_as_default, :kind_of => [TrueClass, FalseClass], :default => false
+attribute :user, :kind_of => String, :name_attribute => true, :default => 'root'
+attribute :group, :kind_of => String, :name_attribute => true, :default => 'root'
