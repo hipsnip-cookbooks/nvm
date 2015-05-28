@@ -27,8 +27,10 @@ action :create do
     flags '-l'
     user nvm_user
     group nvm_group
-    environment Hash[ 'HOME' => node['nvm']['home'] ]
+    environment Hash[ 'HOME' => node['nvm']['home'], 'NVM_DIR' => "#{node['nvm']['home']}.nvm", 'USER' => nvm_user ]
 		code <<-EOH
+      echo $HOME - $NVM_DIR - `whoami` > /tmp/chef-vars.out
+      echo `env` > /tmp/chef-env.out
       source /etc/profile.d/nvm.sh
 			nvm install #{from_source_arg} #{new_resource.version}
 		EOH

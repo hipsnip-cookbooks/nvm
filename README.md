@@ -2,8 +2,6 @@
 
 Chef cookbook for setting up NVM from [creationix's github repository](https://github.com/creationix/nvm).
 
-[![Build Status](https://travis-ci.org/hipsnip-cookbooks/nvm.png?branch=master)](https://travis-ci.org/hipsnip-cookbooks/nvm) [![Dependency Status](https://gemnasium.com/hipsnip-cookbooks/nvm.png)](https://gemnasium.com/hipsnip-cookbooks/nvm)
-
 ## Requirements
 
 Built to run on Linux distributions. Tested on Ubuntu 12.04.
