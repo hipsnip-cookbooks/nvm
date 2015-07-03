@@ -40,32 +40,12 @@ if node['nvm']['install_deps_to_build_from_source']
 end
 
 ############################################################################
-# Configure installation directory
-
-if node['nvm']['user_install'] then
-  if node['nvm']['user'] == 'root'
-    node.set['nvm']['home'] = "#{node['nvm']['user_home_dir']}/root/"
-  else
-    node.set['nvm']['home'] = "#{node['nvm']['user_home_dir']}/" || "/home/#{node['nvm']['user']}/"
-  end
-end
-node.set['nvm']['directory'] = File.join(node['nvm']['home'], '.nvm')
-
-############################################################################
 # Download nvm
-
+log "Downloading NVM"
 git node['nvm']['directory'] do
   user node['nvm']['user']
   group node['nvm']['group']
   repository node['nvm']['repository']
   reference node['nvm']['reference']
   action :sync
-end
-
-#############################################################################
-# Install nvm
-
-template '/etc/profile.d/nvm.sh' do
-  source 'nvm.sh.erb'
-  mode 0755
 end

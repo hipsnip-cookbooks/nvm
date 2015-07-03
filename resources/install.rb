@@ -25,3 +25,6 @@ attribute :from_source, :kind_of => [TrueClass, FalseClass], :default => false
 attribute :alias_as_default, :kind_of => [TrueClass, FalseClass], :default => false
 attribute :user, :kind_of => String, :name_attribute => true, :default => 'root'
 attribute :group, :kind_of => String, :name_attribute => true, :default => 'root'
+attribute :user_install, :kind_of => [TrueClass, FalseClass], :default => false
+attribute :nvm_directory, :kind_of => String, :name_attribute => true, :default => node['nvm']['directory']
+attribute :nvm_user_home, :kind_of => String, :name_attribute => true

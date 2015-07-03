@@ -24,7 +24,6 @@ default['nvm']['user_install'] = false
 default['nvm']['user_home_dir'] = nil
 # Only used if user_install is false
 default['nvm']['directory'] = '/usr/local/src/nvm'
-
 default['nvm']['repository'] = 'git://github.com/creationix/nvm.git'
 default['nvm']['reference'] = 'master'
 default['nvm']['source'] = 'source /etc/profile.d/nvm.sh'
