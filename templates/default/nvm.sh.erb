@@ -1,1 +1,5 @@
-[ -f <%= File.join(@nvm_directory, '/.nvm/nvm.sh') %> ] && . <%= File.join(@nvm_directory, '/.nvm/nvm.sh') %>
+<% if @user_install %>
+[ -f ${HOME}/.nvm/nvm.sh ] && . ${HOME}/.nvm/nvm.sh
+<% else %>
+[ -f /root//.nvm/nvm.sh ] && . /root/.nvm/nvm.sh
+<% end %>

@@ -38,14 +38,3 @@ if node['nvm']['install_deps_to_build_from_source']
     action :install
   end
 end
-
-############################################################################
-# Download nvm
-log "Downloading NVM"
-git node['nvm']['directory'] do
-  user node['nvm']['user']
-  group node['nvm']['group']
-  repository node['nvm']['repository']
-  reference node['nvm']['reference']
-  action :sync
-end
