@@ -25,6 +25,6 @@ attribute :alias_as_default, :kind_of => [TrueClass, FalseClass], :default => fa
 attribute :user, :kind_of => String, :default => 'root'
 attribute :group, :kind_of => String, :default => 'root'
 attribute :user_install, :kind_of => [TrueClass, FalseClass], :default => false
-attribute :version, :kind_of => String, :default => node['nvm']['nodejs_version']
+attribute :version, :kind_of => String, :name_attribute => true
 attribute :nvm_directory, :kind_of => String, :default => node['nvm']['directory']
 attribute :user_home, :kind_of => String

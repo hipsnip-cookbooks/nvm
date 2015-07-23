@@ -47,6 +47,13 @@ Install a node.js version from source or binaries
 - `from_source` - install from source if true, default to false
 - `alias_as_default` - alias the current version as the default version, default true
 
+##### Only used for user install
+- `user_install` - install nvm for a particular user, default false
+- `user` - user to install nvm as, no default
+- `group` - group to install nvm as, defaults to user
+- `user_nome` - home directory of user for user install if it is a non standard home directory, default /home/$user
+- `nvm_directory` -
+
 #### Examples
 
 Install from binary
@@ -64,6 +71,48 @@ Install from source
 		alias_as_default true
 		action :create
 	end
+
+Install as user
+
+  nvm_install '0.10.5' do
+    user 'myuser'
+    group 'mygroup'
+    from_source false
+    alias_as_default true
+    action :create
+  end
+
+Multiple user installs
+
+  nvm_install 'nvm for userone' do
+    version '0.10.5'
+    user 'userone'
+    group 'userone'
+    from_source false
+    alias_as_default true
+    action :create
+  end
+
+  nvm_install 'nvm for usertwo' do
+    version '0.10.5'
+    user 'usertwo'
+    group 'usertwo'
+    from_source false
+    alias_as_default true
+    action :create
+  end
+
+Nonstandard user home user install
+
+  nvm_install '0.10.5' do
+    user 'usertwo'
+    group 'usertwo'
+    user_home '/opt/usertwo'
+    from_source false
+    alias_as_default true
+    action :create
+  end
+
 
 
 ### nvm_alias_default

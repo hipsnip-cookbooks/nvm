@@ -22,4 +22,5 @@ default_action :create
 
 attribute :version, :kind_of => String, :name_attribute => true
 attribute :user, :kind_of => String, :name_attribute => true, :default => 'root'
+attribute :nvm_directory, :kind_of => String, :default => node['nvm']['directory']
 attribute :group, :kind_of => String, :name_attribute => true, :default => 'root'

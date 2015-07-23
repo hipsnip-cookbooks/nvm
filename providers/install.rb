@@ -21,22 +21,19 @@ action :create do
 	from_source_message = new_resource.from_source ? ' from source' : ''
 	from_source_arg = new_resource.from_source ? '-s' : ''
   user_install = false
+  chef_nvm_user = 'root'
+  chef_nvm_group = 'root'
+
   if new_resource.user && new_resource.user != 'root'
     user_install = true
+    chef_nvm_user = new_resource.user
+    chef_nvm_group = new_resource.group || new_resource.user
   end
-  chef_nvm_user = new_resource.user ||= 'root'
-  chef_nvm_group = new_resource.group ||= 'root'
-  #user_install = new_resource.user_install
-  user_home = new_resource.user_home
-  nvm_base_dir = new_resource.nvm_directory
-  if user_install == true
-    if user_home
-      nvm_base_dir = user_home
-    else
-      nvm_base_dir = "/home/" + chef_nvm_user
-    end
+
+  if user_install
+    nvm_base_dir = new_resource.user_home || "/home/" + chef_nvm_user
   else
-    nvm_base_dir = '/root'
+    nvm_base_dir = new_resource.nvm_directory
   end
 
   directory nvm_base_dir + '/.nvm' do
@@ -80,6 +77,7 @@ action :create do
 	nvm_alias_default new_resource.version do
     user chef_nvm_user
     group chef_nvm_group
+    nvm_directory nvm_base_dir
 		action :create
 		only_if { new_resource.alias_as_default }
 	end

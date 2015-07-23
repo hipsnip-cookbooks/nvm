@@ -23,8 +23,9 @@ action :create do
     flags '-l'
     user user
     group group
-    environment Hash[ 'HOME' => node['nvm']['home'] ]
+    environment Hash[ 'HOME' => new_resource.nvm_directory ]
 		code <<-EOH
+      export NVM_DIR=#{new_resource.nvm_directory + '/.nvm'}
 			#{node['nvm']['source']}
 			nvm alias default #{new_resource.version}
 		EOH
