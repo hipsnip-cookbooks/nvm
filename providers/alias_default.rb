@@ -25,7 +25,7 @@ action :create do
     group group
     environment Hash[ 'HOME' => new_resource.nvm_directory ]
 		code <<-EOH
-      export NVM_DIR=#{new_resource.nvm_directory + '/.nvm'}
+      export NVM_DIR=#{new_resource.nvm_directory}
 			#{node['nvm']['source']}
 			nvm alias default #{new_resource.version}
 		EOH

@@ -1,5 +1,1 @@
-<% if @user_install %>
-[ -f ${HOME}/.nvm/nvm.sh ] && . ${HOME}/.nvm/nvm.sh
-<% else %>
-[ -f /root//.nvm/nvm.sh ] && . /root/.nvm/nvm.sh
-<% end %>
+[ -f <%= @nvm_dir %>/nvm.sh ] && . <%= @nvm_dir %>/nvm.sh

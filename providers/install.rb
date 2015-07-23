@@ -23,6 +23,7 @@ action :create do
   user_install = false
   chef_nvm_user = 'root'
   chef_nvm_group = 'root'
+  user_home = '/root'
 
   if new_resource.user && new_resource.user != 'root'
     user_install = true
@@ -30,19 +31,19 @@ action :create do
     chef_nvm_group = new_resource.group || new_resource.user
   end
 
+  nvm_dir = new_resource.nvm_directory
+
   if user_install
-    nvm_base_dir = new_resource.user_home || "/home/" + chef_nvm_user
-  else
-    nvm_base_dir = new_resource.nvm_directory
+    user_home = new_resource.user_home || "/home/" + chef_nvm_user
   end
 
-  directory nvm_base_dir + '/.nvm' do
+  directory nvm_dir do
     user chef_nvm_user
     group chef_nvm_group
     action :create
   end
 
-  git nvm_base_dir + '/.nvm' do
+  git nvm_dir do
     user chef_nvm_user
     group chef_nvm_group
     repository node['nvm']['repository']
@@ -55,19 +56,18 @@ action :create do
     mode 0755
     cookbook 'nvm'
     variables ({
-      :user_install => user_install,
-      :nvm_base_dir => nvm_base_dir
+      :nvm_dir => nvm_dir
     })
   end
 
-	script "Installing node.js #{new_resource.version}#{from_source_message}, as #{chef_nvm_user}:#{chef_nvm_group} from #{nvm_base_dir}" do
+	script "Installing node.js #{new_resource.version}#{from_source_message}, as #{chef_nvm_user}:#{chef_nvm_group} from #{nvm_dir}" do
     interpreter 'bash'
     flags '-l'
     user chef_nvm_user
     group chef_nvm_group
-    environment Hash[ 'HOME' => nvm_base_dir ]
+    environment Hash[ 'HOME' => user_home ]
 		code <<-EOH
-      export NVM_DIR=#{nvm_base_dir + '/.nvm'}
+      export NVM_DIR=#{nvm_dir}
       source /etc/profile.d/nvm.sh
 			nvm install #{from_source_arg} #{new_resource.version}
 		EOH
@@ -77,7 +77,7 @@ action :create do
 	nvm_alias_default new_resource.version do
     user chef_nvm_user
     group chef_nvm_group
-    nvm_directory nvm_base_dir
+    nvm_directory nvm_dir
 		action :create
 		only_if { new_resource.alias_as_default }
 	end
